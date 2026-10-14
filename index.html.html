@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Councillor Official Portal - Karnal | BJP</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        bjp: {
+                            saffron: '#FF671F',
+                            green: '#046A38',
+                            dark: '#1a1a1a',
+                            light: '#FFF5EB'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .bjp-gradient { background: linear-gradient(135deg, #FF671F 0%, #046A38 100%); }
+        .saffron-gradient { background: linear-gradient(135deg, #FF671F 0%, #ff8c42 100%); }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 flex flex-col min-h-screen">
+
+    <!-- Top Header Bar -->
+    <div class="bg-bjp-dark text-white text-xs py-2 px-4">
+        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-2">
+            <div class="flex items-center space-x-4">
+                <span class="flex items-center gap-1"><i class="fa-solid fa-location-dot text-bjp-saffron"></i> Municipal Corporation Karnal, Haryana</span>
+                <span class="hidden md:flex items-center gap-1"><i class="fa-solid fa-phone text-bjp-saffron"></i> +91 98765 43210</span>
+            </div>
+            <div class="flex items-center space-x-3">
+                <span class="bg-bjp-saffron text-white px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider">Nominated Councillor</span>
+                <div class="flex space-x-2">
+                    <a href="#social" onclick="switchTab('social')" class="hover:text-bjp-saffron transition"><i class="fab fa-facebook"></i></a>
+                    <a href="#social" onclick="switchTab('social')" class="hover:text-bjp-saffron transition"><i class="fab fa-twitter"></i></a>
+                    <a href="#social" onclick="switchTab('social')" class="hover:text-bjp-saffron transition"><i class="fab fa-instagram"></i></a>
+                    <a href="#social" onclick="switchTab('social')" class="hover:text-bjp-saffron transition"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Navigation Header -->
+    <header class="bg-white shadow-md sticky top-0 z-50 border-b-4 border-b-bjp-saffron">
+        <div class="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
+            <!-- Branding / Logo -->
+            <div class="flex items-center space-x-3 cursor-pointer" onclick="switchTab('home')">
+                <div class="w-12 h-12 rounded-full saffron-gradient flex items-center justify-center text-white shadow-md font-bold text-xl border-2 border-green-700">
+                    <i class="fa-solid fa-seedling text-white"></i>
+                </div>
+                <div>
+                    <h1 class="font-extrabold text-lg sm:text-xl text-gray-900 tracking-tight flex items-center gap-2">
+                        <span>Karnal Municipal Office</span>
+                        <span class="text-xs bg-green-100 text-bjp-green px-2 py-0.5 rounded-full font-semibold border border-green-300">BJP</span>
+                    </h1>
+                    <p class="text-xs text-gray-600 font-medium">Official Portal | Nominated Councillor</p>
+                </div>
+            </div>
+
+            <!-- Desktop Nav -->
+            <nav class="hidden md:flex space-x-1 lg:space-x-2 font-medium text-sm">
+                <button onclick="switchTab('home')" id="nav-home" class="nav-btn px-3 py-2 rounded-lg text-bjp-saffron font-bold bg-orange-50 transition">Home</button>
+                <button onclick="switchTab('about')" id="nav-about" class="nav-btn px-3 py-2 rounded-lg text-gray-700 hover:text-bjp-saffron hover:bg-gray-100 transition">About Me</button>
+                <button onclick="switchTab('social')" id="nav-social" class="nav-btn px-3 py-2 rounded-lg text-gray-700 hover:text-bjp-saffron hover:bg-gray-100 transition">Social Media</button>
+                <button onclick="switchTab('grievance')" id="nav-grievance" class="nav-btn px-3 py-2 rounded-lg text-gray-700 hover:text-bjp-saffron hover:bg-gray-100 transition flex items-center gap-1">
+                    <span>Grievance Portal</span>
+                    <span class="bg-red-500 text-white text-[10px] px-1.5 py-0.2 rounded-full animate-pulse">Live</span>
+                </button>
+                <button onclick="switchTab('contact')" id="nav-contact" class="nav-btn px-3 py-2 rounded-lg text-gray-700 hover:text-bjp-saffron hover:bg-gray-100 transition">Contact Me</button>
+                <button onclick="switchTab('guide')" id="nav-guide" class="nav-btn px-3 py-2 rounded-lg bg-bjp-green text-white hover:bg-green-800 transition shadow-sm"><i class="fa-solid fa-book mr-1"></i> Setup Guide</button>
+            </nav>
+
+            <!-- Mobile Menu Button -->
+            <button onclick="toggleMobileMenu()" class="md:hidden text-gray-700 hover:text-bjp-saffron focus:outline-none p-2 text-xl">
+                <i class="fa-solid fa-bars" id="mobile-menu-icon"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Nav Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-200 px-4 pt-2 pb-4 space-y-1 shadow-inner">
+            <button onclick="switchTab('home'); toggleMobileMenu();" class="block w-full text-left px-3 py-2 rounded-md font-medium text-bjp-saffron bg-orange-50">Home</button>
+            <button onclick="switchTab('about'); toggleMobileMenu();" class="block w-full text-left px-3 py-2 rounded-md font-medium text-gray-700 hover:bg-gray-100">About Me</button>
+            <button onclick="switchTab('social'); toggleMobileMenu();" class="block w-full text-left px-3 py-2 rounded-md font-medium text-gray-700 hover:bg-gray-100">Social Media</button>
+            <button onclick="switchTab('grievance'); toggleMobileMenu();" class="block w-full text-left px-3 py-2 rounded-md font-medium text-gray-700 hover:bg-gray-100">Public Grievance Portal</button>
+            <button onclick="switchTab('contact'); toggleMobileMenu();" class="block w-full text-left px-3 py-2 rounded-md font-medium text-gray-700 hover:bg-gray-100">Contact Me</button>
+            <button onclick="switchTab('guide'); toggleMobileMenu();" class="block w-full text-left px-3 py-2 rounded-md font-medium bg-bjp-green text-white">Setup & Publish Guide</button>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT CONTAINER -->
+    <main class="flex-grow">
+
+        <!-- ==================== PAGE 1: HOME ==================== -->
+        <div id="tab-home" class="tab-content active">
+            <!-- Hero Banner -->
+            <div class="relative bg-gradient-to-r from-orange-600 via-orange-500 to-green-700 text-white overflow-hidden shadow-xl">
+                <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:16px_16px]"></div>
+                <div class="max-w-7xl mx-auto px-4 py-16 sm:py-24 relative z-10 grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
+                    <div class="md:col-span-7 space-y-6 text-center md:text-left">
+                        <div class="inline-flex items-center gap-2 bg-white/20 backdrop-blur-md px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider border border-white/30">
+                            <i class="fa-solid fa-award text-yellow-300"></i> Bharatiya Janata Party (BJP) Karnal
+                        </div>
+                        <h2 class="text-3xl sm:text-5xl font-extrabold tracking-tight leading-tight">
+                            Dedicated to Karnal's <span class="text-yellow-200 underline decoration-green-400">Vikas & Sabka Saath</span>
+                        </h2>
+                        <p class="text-base sm:text-lg text-orange-50 max-w-2xl font-light">
+                            Welcome to the official office portal of your Nominated Municipal Councillor. Empowering wards, ensuring transparent governance, and accelerating Smart City Karnal missions.
+                        </p>
+                        <div class="flex flex-wrap justify-center md:justify-start gap-4 pt-2">
+                            <button onclick="switchTab('grievance')" class="bg-white text-orange-700 hover:bg-orange-50 font-bold px-6 py-3 rounded-lg shadow-lg transition transform hover:-translate-y-0.5 flex items-center gap-2">
+                                <i class="fa-solid fa-triangle-exclamation"></i> File a Grievance
+                            </button>
+                            <button onclick="switchTab('about')" class="bg-green-800 hover:bg-green-900 text-white font-bold px-6 py-3 rounded-lg shadow-lg transition border border-green-600 flex items-center gap-2">
+                                <i class="fa-solid fa-user-tie"></i> Meet the Councillor
+                            </button>
+                        </div>
+                    </div>
+                    <div class="md:col-span-5 flex justify-center">
+                        <div class="relative">
+                            <div class="w-64 h-64 sm:w-80 sm:h-80 rounded-full border-4 border-white/80 shadow-2xl overflow-hidden bg-white/10 backdrop-blur-sm flex items-center justify-center p-2">
+                                <img src="https://placehold.co/400x400/FF671F/ffffff?text=Hon'ble+Councillor" alt="Municipal Councillor Portrait" class="w-full h-full object-cover rounded-full shadow-inner" onerror="this.src='https://placehold.co/400x400/FF671F/ffffff?text=Councillor+Photo'">
+                            </div>
+                            <div class="absolute bottom-2 right-4 bg-green-700 text-white p-3 rounded-full shadow-lg border-2 border-white">
+                                <i class="fa-solid fa-check text-xl"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Saffron & Green Bottom Stripe -->
+                <div class="h-2 bg-gradient-to-r from-orange-400 via-white to-green-600"></div>
+            </div>
+
+            <!-- Key Highlights & Quick Stats -->
+            <section class="max-w-7xl mx-auto px-4 -mt-8 relative z-20 mb-16">
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div class="bg-white rounded-xl shadow-lg p-6 border-t-4 border-bjp-saffron text-center transform hover:scale-102 transition">
+                        <div class="w-12 h-12 bg-orange-100 text-bjp-saffron rounded-full flex items-center justify-center mx-auto mb-4 text-xl font-bold">
+                            <i class="fa-solid fa-road"></i>
+                        </div>
+                        <h3 class="text-3xl font-extrabold text-gray-900">45+</h3>
+                        <p class="text-sm font-medium text-gray-600 mt-1">Roads & Streets Repaired</p>
+                    </div>
+                    <div class="bg-white rounded-xl shadow-lg p-6 border-t-4 border-green-600 text-center transform hover:scale-102 transition">
+                        <div class="w-12 h-12 bg-green-100 text-bjp-green rounded-full flex items-center justify-center mx-auto mb-4 text-xl font-bold">
+                            <i class="fa-solid fa-lightbulb"></i>
+                        </div>
+                        <h3 class="text-3xl font-extrabold text-gray-900">1,200+</h3>
+                        <p class="text-sm font-medium text-gray-600 mt-1">LED Streetlights Installed</p>
+                    </div>
+                    <div class="bg-white rounded-xl shadow-lg p-6 border-t-4 border-bjp-saffron text-center transform hover:scale-102 transition">
+                        <div class="w-12 h-12 bg-orange-100 text-bjp-saffron rounded-full flex items-center justify-center mx-auto mb-4 text-xl font-bold">
+                            <i class="fa-solid fa-clipboard-check"></i>
+                        </div>
+                        <h3 class="text-3xl font-extrabold text-gray-900">98%</h3>
+                        <p class="text-sm font-medium text-gray-600 mt-1">Grievance Resolution Rate</p>
+                    </div>
+                    <div class="bg-white rounded-xl shadow-lg p-6 border-t-4 border-green-600 text-center transform hover:scale-102 transition">
+                        <div class="w-12 h-12 bg-green-100 text-bjp-green rounded-full flex items-center justify-center mx-auto mb-4 text-xl font-bold">
+                            <i class="fa-solid fa-people-group"></i>
+                        </div>
+                        <h3 class="text-3xl font-extrabold text-gray-900">25,000+</h3>
+                        <p class="text-sm font-medium text-gray-600 mt-1">Citizens Directly Served</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Key Achievements & Latest News Section -->
+            <section class="max-w-7xl mx-auto px-4 mb-20">
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                    <!-- Achievements Column (2 cols) -->
+                    <div class="lg:col-span-2 space-y-6">
+                        <div class="border-l-4 border-bjp-saffron pl-4">
+                            <span class="text-xs uppercase font-bold text-bjp-saffron tracking-wider">Milestones & Progress</span>
+                            <h3 class="text-2xl font-bold text-gray-900">Key Municipal Achievements in Karnal</h3>
+                        </div>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div class="bg-white p-6 rounded-xl shadow-md border border-gray-100 hover:shadow-lg transition">
+                                <div class="text-bjp-saffron text-2xl mb-3"><i class="fa-solid fa-tint"></i></div>
+                                <h4 class="font-bold text-lg mb-2">Clean Water Pipeline Expansion</h4>
+                                <p class="text-sm text-gray-600">Successfully laid over 4 km of new drinking water supply lines ensuring uninterrupted clean water access to underserved households.</p>
+                            </div>
+                            <div class="bg-white p-6 rounded-xl shadow-md border border-gray-100 hover:shadow-lg transition">
+                                <div class="text-bjp-green text-2xl mb-3"><i class="fa-solid fa-tree"></i></div>
+                                <h4 class="font-bold text-lg mb-2">Green Karnal Park Initiative</h4>
+                                <p class="text-sm text-gray-600">Revamped 5 local community parks with modern open-air gyms, walking tracks, and children play zones under clean city drives.</p>
+                            </div>
+                            <div class="bg-white p-6 rounded-xl shadow-md border border-gray-100 hover:shadow-lg transition">
+                                <div class="text-bjp-green text-2xl mb-3"><i class="fa-solid fa-shield-halved"></i></div>
+                                <h4 class="font-bold text-lg mb-2">Safe Streets CCTV Network</h4>
+                                <p class="text-sm text-gray-600">Installed high-definition CCTV camera networks across key market crossings and residential lanes for enhanced public safety.</p>
+                            </div>
+                            <div class="bg-white p-6 rounded-xl shadow-md border border-gray-100 hover:shadow-lg transition">
+                                <div class="text-bjp-saffron text-2xl mb-3"><i class="fa-solid fa-house-chimney-user"></i></div>
+                                <h4 class="font-bold text-lg mb-2">PM Awas Yojana Coordination</h4>
+                                <p class="text-sm text-gray-600">Facilitated smooth documentation and verification for beneficiaries under central and state housing welfare schemes.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Latest News & Announcements Column (1 col) -->
+                    <div class="bg-white rounded-xl shadow-md p-6 border-t-4 border-bjp-green flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between pb-4 border-b border-gray-200 mb-4">
+                                <h3 class="font-bold text-lg text-gray-900 flex items-center gap-2">
+                                    <i class="fa-solid fa-bullhorn text-bjp-saffron"></i> Latest Updates
+                                </h3>
+                                <span class="bg-green-100 text-bjp-green text-xs px-2 py-0.5 rounded font-semibold">Active</span>
+                            </div>
+
+                            <div class="space-y-4">
+                                <div class="pb-3 border-b border-gray-100">
+                                    <span class="text-[11px] text-gray-500 font-semibold"><i class="fa-regular fa-calendar"></i> October 14, 2026</span>
+                                    <h5 class="font-semibold text-sm text-gray-800 mt-1 hover:text-bjp-saffron cursor-pointer">Ward-level Open Janata Darbar announced for this Sunday at Sector Community Hall.</h5>
+                                </div>
+                                <div class="pb-3 border-b border-gray-100">
+                                    <span class="text-[11px] text-gray-500 font-semibold"><i class="fa-regular fa-calendar"></i> October 10, 2026</span>
+                                    <h5 class="font-semibold text-sm text-gray-800 mt-1 hover:text-bjp-saffron cursor-pointer">Special sanitation drive initiated ahead of festival season across all Karnal zones.</h5>
+                                </div>
+                                <div>
+                                    <span class="text-[11px] text-gray-500 font-semibold"><i class="fa-regular fa-calendar"></i> October 05, 2026</span>
+                                    <h5 class="font-semibold text-sm text-gray-800 mt-1 hover:text-bjp-saffron cursor-pointer">Inspection of ongoing road recarpeting work along GT Road connecting lanes.</h5>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mt-6 pt-4 border-t border-gray-100">
+                            <button onclick="switchTab('social')" class="w-full text-center text-sm font-bold text-bjp-saffron hover:text-orange-700 transition flex items-center justify-center gap-1">
+                                View all social updates <i class="fa-solid fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- ==================== PAGE 2: ABOUT ME ==================== -->
+        <div id="tab-about" class="tab-content">
+            <!-- Header Section -->
+            <div class="bg-bjp-light py-12 border-b border-gray-200">
+                <div class="max-w-7xl mx-auto px-4 text-center">
+                    <span class="text-xs font-bold uppercase tracking-widest text-bjp-saffron bg-orange-100 px-3 py-1 rounded-full">Leadership Profile</span>
+                    <h2 class="text-3xl sm:text-4xl font-extrabold text-gray-900 mt-3">About Your Municipal Councillor</h2>
+                    <p class="text-gray-600 max-w-2xl mx-auto mt-2 text-sm sm:text-base">Committed to public service, grassroots empowerment, and transforming Karnal into a modern, clean, and vibrant municipal model city.</p>
+                </div>
+            </div>
+
+            <!-- Bio & Vision Grid -->
+            <section class="max-w-7xl mx-auto px-4 py-16">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                    <!-- Photo & Quick Info -->
+                    <div class="lg:col-span-5 space-y-6">
+                        <div class="bg-white rounded-2xl shadow-xl overflow-hidden border-2 border-orange-200 p-4">
+                            <img src="https://placehold.co/500x600/FF671F/ffffff?text=Councillor+Portrait" alt="Councillor Full Profile" class="w-full h-96 object-cover rounded-xl shadow-md">
+                            <div class="pt-6 text-center">
+                                <h3 class="text-2xl font-bold text-gray-900">Shri. Rajesh Sharma (Nominated)</h3>
+                                <p class="text-sm font-semibold text-bjp-saffron">Municipal Councillor, Karnal</p>
+                                <div class="mt-4 flex justify-center space-x-3">
+                                    <span class="bg-orange-50 text-bjp-saffron px-3 py-1 rounded-full text-xs font-bold border border-orange-200">BJP Karyakarta</span>
+                                    <span class="bg-green-50 text-bjp-green px-3 py-1 rounded-full text-xs font-bold border border-green-200">Social Worker</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Detailed Bio & Vision -->
+                    <div class="lg:col-span-7 space-y-6">
+                        <div class="border-l-4 border-bjp-green pl-4">
+                            <h3 class="text-2xl font-bold text-gray-900">A Life Dedicated to Public Welfare</h3>
+                        </div>
+                        <p class="text-gray-700 leading-relaxed text-sm sm:text-base">
+                            Appointed as a Nominated Municipal Councillor for Karnal under the Bharatiya Janata Party administration, I have dedicated decades to community organization, youth welfare, and urban infrastructural enhancement. Working closely with the state government and municipal corporation officials, my objective is to bridge the gap between citizens and administration.
+                        </p>
+                        <p class="text-gray-700 leading-relaxed text-sm sm:text-base">
+                            Under the inspiring leadership of Prime Minister Narendra Modi and Chief Minister, our mission is to ensure zero tolerance for civic delays, absolute transparency in fund utilization, and prompt resolution of public grievances.
+                        </p>
+
+                        <!-- Vision Cards -->
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4">
+                            <div class="bg-white p-5 rounded-xl shadow-sm border border-gray-200">
+                                <div class="text-bjp-saffron font-bold text-lg mb-1 flex items-center gap-2">
+                                    <i class="fa-solid fa-bullseye"></i> Our Vision
+                                </div>
+                                <p class="text-xs sm:text-sm text-gray-600">To make Karnal a benchmark municipal body in sanitation, green cover, digital grievance redressal, and citizen participation.</p>
+                            </div>
+                            <div class="bg-white p-5 rounded-xl shadow-sm border border-gray-200">
+                                <div class="text-bjp-green font-bold text-lg mb-1 flex items-center gap-2">
+                                    <i class="fa-solid fa-handshake"></i> Community First
+                                </div>
+                                <p class="text-xs sm:text-sm text-gray-600">Open door policy for every resident of Karnal. Weekly mohalla meetings and direct interaction to address local bottlenecks.</p>
+                            </div>
+                        </div>
+
+                        <!-- Committee Memberships -->
+                        <div class="bg-orange-50/50 p-6 rounded-xl border border-orange-200 space-y-3">
+                            <h4 class="font-bold text-gray-900 flex items-center gap-2">
+                                <i class="fa-solid fa-building-columns text-bjp-saffron"></i> Municipal Committee Associations
+                            </h4>
+                            <ul class="list-disc list-inside text-sm text-gray-700 space-y-1">
+                                <li>Member, Karnal Municipal Corporation Sanitation & Health Standing Committee</li>
+                                <li>Chairman, Smart City Infrastructure & Public Lighting Sub-Committee</li>
+                                <li>Advisor, Urban Parks & Water Bodies Conservation Board</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- ==================== PAGE 3: SOCIAL MEDIA ==================== -->
+        <div id="tab-social" class="tab-content">
+            <!-- Header -->
+            <div class="bg-bjp-dark text-white py-12">
+                <div class="max-w-7xl mx-auto px-4 text-center">
+                    <span class="text-xs font-bold uppercase tracking-widest text-bjp-saffron bg-white/10 px-3 py-1 rounded-full">Digital Connect</span>
+                    <h2 class="text-3xl sm:text-4xl font-extrabold mt-3">Social Media & Public Visits</h2>
+                    <p class="text-gray-300 max-w-xl mx-auto mt-2 text-sm">Stay updated with daily ward rounds, public meetings, announcements, and policy implementation.</p>
+                </div>
+            </div>
+
+            <section class="max-w-7xl mx-auto px-4 py-16 space-y-12">
+                <!-- Social Feeds Simulation -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <!-- X / Twitter Simulation -->
+                    <div class="bg-white rounded-xl shadow-lg border border-gray-200 overflow-hidden flex flex-col justify-between">
+                        <div class="bg-black text-white px-6 py-4 flex items-center justify-between">
+                            <div class="flex items-center gap-2 font-bold">
+                                <i class="fa-brands fa-x-twitter text-lg"></i> X (Twitter) Feed
+                            </div>
+                            <span class="text-xs bg-white/20 px-2 py-0.5 rounded">@KarnalCouncillor</span>
+                        </div>
+                        <div class="p-6 space-y-4 flex-grow">
+                            <div class="flex items-start gap-3 pb-4 border-b border-gray-100">
+                                <div class="w-10 h-10 rounded-full bg-bjp-saffron text-white flex items-center justify-center font-bold flex-shrink-0">RS</div>
+                                <div>
+                                    <div class="flex items-center gap-1">
+                                        <span class="font-bold text-sm">Rajesh Sharma BJP</span>
+                                        <i class="fa-solid fa-circle-check text-blue-500 text-xs"></i>
+                                        <span class="text-xs text-gray-500">2h</span>
+                                    </div>
+                                    <p class="text-sm text-gray-800 mt-1">Inspected the newly laid interlocking tile pathways in Ward 12. Ensuring quality infrastructure for Karnal residents. #Vikas #Karnal #BJP</p>
+                                    <div class="mt-2 text-xs text-bjp-saffron font-semibold">❤️ 342 Retweets • 58 replies</div>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-3">
+                                <div class="w-10 h-10 rounded-full bg-bjp-saffron text-white flex items-center justify-center font-bold flex-shrink-0">RS</div>
+                                <div>
+                                    <div class="flex items-center gap-1">
+                                        <span class="font-bold text-sm">Rajesh Sharma BJP</span>
+                                        <i class="fa-solid fa-circle-check text-blue-500 text-xs"></i>
+                                        <span class="text-xs text-gray-500">1d</span>
+                                    </div>
+                                    <p class="text-sm text-gray-800 mt-1">Held a productive meeting with Municipal Corporation engineers to fast-track street light repairs before Deepawali. #KarnalMC</p>
+                                    <div class="mt-2 text-xs text-bjp-saffron font-semibold">❤️ 512 Retweets • 84 replies</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-gray-50 px-6 py-3 border-t border-gray-100 text-center">
+                            <a href="#" class="text-xs font-bold text-blue-600 hover:underline">Follow @KarnalCouncillor on X <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                        </div>
+                    </div>
+
+                    <!-- Facebook / Instagram Simulation -->
+                    <div class="bg-white rounded-xl shadow-lg border border-gray-200 overflow-hidden flex flex-col justify-between">
+                        <div class="bg-blue-600 text-white px-6 py-4 flex items-center justify-between">
+                            <div class="flex items-center gap-2 font-bold">
+                                <i class="fa-brands fa-facebook text-lg"></i> Facebook Official Page
+                            </div>
+                            <span class="text-xs bg-white/20 px-2 py-0.5 rounded">15K Followers</span>
+                        </div>
+                        <div class="p-6 space-y-4 flex-grow">
+                            <div class="flex items-start gap-3 pb-4 border-b border-gray-100">
+                                <div class="w-10 h-10 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold flex-shrink-0">RS</div>
+                                <div>
+                                    <div class="flex items-center gap-1">
+                                        <span class="font-bold text-sm">Rajesh Sharma - Councillor Karnal</span>
+                                        <span class="text-xs text-gray-500">Yesterday</span>
+                                    </div>
+                                    <p class="text-sm text-gray-800 mt-1">Listening to public grievances during the morning walk-through in sector markets. Solved 12 spot issues immediately with visiting sanitary inspectors!</p>
+                                    <div class="mt-3 rounded-lg overflow-hidden border border-gray-200 h-36 bg-gray-100 flex items-center justify-center text-gray-400">
+                                        <img src="https://placehold.co/600x300/FF671F/ffffff?text=Public+Interaction+Photo" alt="Public Visit" class="w-full h-full object-cover">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-gray-50 px-6 py-3 border-t border-gray-100 text-center">
+                            <a href="#" class="text-xs font-bold text-blue-600 hover:underline">Like & Follow Facebook Page <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Photo Gallery of Public Visits -->
+                <div class="space-y-6">
+                    <div class="border-l-4 border-bjp-saffron pl-4">
+                        <span class="text-xs uppercase font-bold text-bjp-saffron tracking-wider">Ground Action</span>
+                        <h3 class="text-2xl font-bold text-gray-900">Photo Gallery: Public Visits & Inspections</h3>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <div class="bg-white rounded-xl shadow-md overflow-hidden border border-gray-200 group">
+                            <div class="h-48 overflow-hidden bg-gray-100">
+                                <img src="https://placehold.co/400x300/046A38/ffffff?text=Janata+Darbar" alt="Janata Darbar" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
+                            </div>
+                            <div class="p-4">
+                                <span class="text-[10px] bg-green-100 text-bjp-green font-bold px-2 py-0.5 rounded">Janata Darbar</span>
+                                <h4 class="font-bold text-sm text-gray-900 mt-2">Weekly Public Grievance Hearing Session</h4>
+                                <p class="text-xs text-gray-600 mt-1">Interacting directly with residents to resolve water & property tax concerns.</p>
+                            </div>
+                        </div>
+
+                        <div class="bg-white rounded-xl shadow-md overflow-hidden border border-gray-200 group">
+                            <div class="h-48 overflow-hidden bg-gray-100">
+                                <img src="https://placehold.co/400x300/FF671F/ffffff?text=Cleanliness+Drive" alt="Cleanliness Drive" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
+                            </div>
+                            <div class="p-4">
+                                <span class="text-[10px] bg-orange-100 text-bjp-saffron font-bold px-2 py-0.5 rounded">Swachh Karnal</span>
+                                <h4 class="font-bold text-sm text-gray-900 mt-2">Mega Cleanliness & Sanitation Inspection</h4>
+                                <p class="text-xs text-gray-600 mt-1">Superintending morning sweep drives and waste segregation camps.</p>
+                            </div>
+                        </div>
+
+                        <div class="bg-white rounded-xl shadow-md overflow-hidden border border-gray-200 group">
+                            <div class="h-48 overflow-hidden bg-gray-100">
+                                <img src="https://placehold.co/400x300/1a1a1a/ffffff?text=Road+Inspection" alt="Road Inspection" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
+                            </div>
+                            <div class="p-4">
+                                <span class="text-[10px] bg-blue-100 text-blue-800 font-bold px-2 py-0.5 rounded">Infrastucture</span>
+                                <h4 class="font-bold text-sm text-gray-900 mt-2">New Road Construction Quality Check</h4>
+                                <p class="text-xs text-gray-600 mt-1">Ensuring high-grade bitumen mixing and proper road level gradients.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- ==================== PAGE 4: PUBLIC GRIEVANCE PORTAL ==================== -->
+        <div id="tab-grievance" class="tab-content">
+            <!-- Header -->
+            <div class="bg-gradient-to-r from-green-700 to-green-900 text-white py-12">
+                <div class="max-w-7xl mx-auto px-4 text-center">
+                    <span class="text-xs font-bold uppercase tracking-widest text-yellow-300 bg-white/10 px-3 py-1 rounded-full">Citizen First</span>
+                    <h2 class="text-3xl sm:text-4xl font-extrabold mt-3">Public Grievance Redressal Portal</h2>
+                    <p class="text-green-100 max-w-xl mx-auto mt-2 text-sm">Raise municipal issues in Karnal instantly. Track your ticket status with automated updates.</p>
+                </div>
+            </div>
+
+            <section class="max-w-7xl mx-auto px-4 py-16">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+                    <!-- Grievance Form (7 cols) -->
+                    <div class="lg:col-span-7 bg-white rounded-2xl shadow-xl p-6 sm:p-8 border border-gray-200">
+                        <div class="border-b border-gray-200 pb-4 mb-6">
+                            <h3 class="text-xl font-bold text-gray-900 flex items-center gap-2">
+                                <i class="fa-solid fa-file-pen text-bjp-saffron"></i> Lodge a New Complaint
+                            </h3>
+                            <p class="text-xs text-gray-500 mt-1">Please provide accurate details so our team can resolve the issue swiftly.</p>
+                        </div>
+
+                        <form id="grievanceForm" onsubmit="handleGrievanceSubmit(event)" class="space-y-4">
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-xs font-bold text-gray-700 uppercase mb-1">Your Full Name *</label>
+                                    <input type="text" id="gName" required placeholder="Enter full name" class="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-bjp-saffron focus:outline-none text-sm">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold text-gray-700 uppercase mb-1">Mobile Number *</label>
+                                    <input type="tel" id="gPhone" required placeholder="10-digit mobile number" class="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-bjp-saffron focus:outline-none text-sm">
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-xs font-bold text-gray-700 uppercase mb-1">Category *</label>
+                                    <select id="gCategory" required class="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-bjp-saffron focus:outline-none text-sm bg-white">
+                                        <option value="">Select Category</option>
+                                        <option value="Sanitation & Garbage">Sanitation & Garbage Collection</option>
+                                        <option value="Streetlights">Streetlights & Electrical</option>
+                                        <option value="Water Supply">Water Supply & Leakage</option>
+                                        <option value="Roads & Potholes">Roads & Potholes Repair</option>
+                                        <option value="Drainage & Sewerage">Drainage & Sewerage Overflow</option>
+                                        <option value="Other Municipal Issue">Other Municipal Issue</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold text-gray-700 uppercase mb-1">Karnal Ward / Area *</label>
+                                    <input type="text" id="gLocation" required placeholder="e.g., Sector 6, Model Town, Karnal" class="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-bjp-saffron focus:outline-none text-sm">
+                                </div>
+                            </div>
+
+                            <div>
+                                <label class="block text-xs font-bold text-gray-700 uppercase mb-1">Detailed Description *</label>
+                                <textarea id="gDesc" required rows="4" placeholder="Describe the issue clearly with landmark details..." class="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-bjp-saffron focus:outline-none text-sm"></textarea>
+                            </div>
+
+                            <button type="submit" class="w-full bg-bjp-saffron hover:bg-orange-700 text-white font-bold py-3 rounded-lg shadow-md transition flex items-center justify-center gap-2">
+                                <i class="fa-solid fa-paper-plane"></i> Submit Grievance & Get Ticket ID
+                            </button>
+                        </form>
+
+                        <!-- Success Alert Box (Hidden by default) -->
+                        <div id="ticketSuccessBox" class="hidden mt-6 p-4 rounded-xl bg-green-50 border border-green-300 text-green-900 space-y-2">
+                            <div class="flex items-center gap-2 font-bold text-green-800">
+                                <i class="fa-solid fa-circle-check text-xl"></i> Grievance Registered Successfully!
+                            </div>
+                            <p class="text-xs">Your Tracking ID is: <strong id="generatedTicketId" class="bg-white px-2 py-0.5 rounded border border-green-200 text-bjp-green font-mono text-sm"></strong></p>
+                            <p class="text-xs text-gray-600">Save this ID to check status. Our field team has been notified.</p>
+                        </div>
+                    </div>
+
+                    <!-- Recent Local Complaints Tracker (5 cols) -->
+                    <div class="lg:col-span-5 space-y-6">
+                        <div class="bg-white rounded-2xl shadow-xl p-6 border border-gray-200">
+                            <div class="flex items-center justify-between pb-4 border-b border-gray-200 mb-4">
+                                <h3 class="font-bold text-lg text-gray-900 flex items-center gap-2">
+                                    <i class="fa-solid fa-list-check text-bjp-green"></i> Recent Local Complaints
+                                </h3>
+                                <span class="text-xs text-gray-500 font-semibold">Live Status</span>
+                            </div>
+
+                            <!-- Complaints List Container -->
+                            <div id="complaintsListContainer" class="space-y-4 max-h-[450px] overflow-y-auto pr-1">
+                                <!-- Dynamically populated or default static complaints -->
+                                <div class="p-4 rounded-xl bg-gray-50 border border-gray-200 space-y-2">
+                                    <div class="flex justify-between items-start">
+                                        <span class="text-xs font-mono font-bold text-bjp-saffron">TKT-88421</span>
+                                        <span class="text-[10px] bg-yellow-100 text-yellow-800 font-bold px-2 py-0.5 rounded-full">In Progress</span>
+                                    </div>
+                                    <h4 class="font-bold text-sm text-gray-800">Streetlight non-functional near Chowk</h4>
+                                    <p class="text-xs text-gray-600">Sector 7, Karnal • <span class="italic">Electrical</span></p>
+                                    <div class="text-[11px] text-gray-400 pt-1 border-t border-gray-200 flex justify-between">
+                                        <span>Submitted: Oct 13, 2026</span>
+                                        <span class="text-bjp-green font-medium">Assigned to Field Team</span>
+                                    </div>
+                                </div>
+
+                                <div class="p-4 rounded-xl bg-gray-50 border border-gray-200 space-y-2">
+                                    <div class="flex justify-between items-start">
+                                        <span class="text-xs font-mono font-bold text-bjp-saffron">TKT-88390</span>
+                                        <span class="text-[10px] bg-green-100 text-bjp-green font-bold px-2 py-0.5 rounded-full">Resolved</span>
+                                    </div>
+                                    <h4 class="font-bold text-sm text-gray-800">Garbage clearing and sweeping</h4>
+                                    <p class="text-xs text-gray-600">Model Town, Karnal • <span class="italic">Sanitation</span></p>
+                                    <div class="text-[11px] text-gray-400 pt-1 border-t border-gray-200 flex justify-between">
+                                        <span>Submitted: Oct 11, 2026</span>
+                                        <span class="text-bjp-green font-medium">Closed Successfully</span>
+                                    </div>
+                                </div>
+
+                                <div class="p-4 rounded-xl bg-gray-50 border border-gray-200 space-y-2">
+                                    <div class="flex justify-between items-start">
+                                        <span class="text-xs font-mono font-bold text-bjp-saffron">TKT-88312</span>
+                                        <span class="text-[10px] bg-green-100 text-bjp-green font-bold px-2 py-0.5 rounded-full">Resolved</span>
+                                    </div>
+                                    <h4 class="font-bold text-sm text-gray-800">Water pipeline valve leakage repair</h4>
+                                    <p class="text-xs text-gray-600">Urban Estate, Karnal • <span class="italic">Water Supply</span></p>
+                                    <div class="text-[11px] text-gray-400 pt-1 border-t border-gray-200 flex justify-between">
+                                        <span>Submitted: Oct 08, 2026</span>
+                                        <span class="text-bjp-green font-medium">Closed Successfully</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- ==================== PAGE 5: CONTACT ME ==================== -->
+        <div id="tab-contact" class="tab-content">
+            <!-- Header -->
+            <div class="bg-bjp-dark text-white py-12">
+                <div class="max-w-7xl mx-auto px-4 text-center">
+                    <span class="text-xs font-bold uppercase tracking-widest text-bjp-saffron bg-white/10 px-3 py-1 rounded-full">Office Reach</span>
+                    <h2 class="text-3xl sm:text-4xl font-extrabold mt-3">Contact Municipal Councillor Office</h2>
+                    <p class="text-gray-300 max-w-xl mx-auto mt-2 text-sm">We are here to assist you. Reach out via office visit, phone, or direct message.</p>
+                </div>
+            </div>
+
+            <section class="max-w-7xl mx-auto px-4 py-16">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+                    <!-- Contact Info & Map (5 cols) -->
+                    <div class="lg:col-span-5 space-y-6">
+                        <div class="bg-white rounded-2xl shadow-xl p-8 border border-gray-200 space-y-6">
+                            <h3 class="text-xl font-bold text-gray-900 border-b pb-4 flex items-center gap-2">
+                                <i class="fa-solid fa-address-book text-bjp-saffron"></i> Office Details
+                            </h3>
+
+                            <div class="space-y-4 text-sm">
+                                <div class="flex items-start gap-3">
+                                    <div class="text-bjp-saffron text-lg mt-0.5"><i class="fa-solid fa-location-dot"></i></div>
+                                    <div>
+                                        <strong class="block text-gray-900">Official Office Address</strong>
+                                        <span class="text-gray-600">Municipal Councillor Camp Office, Near Ambedkar Chowk, Karnal, Haryana - 132001</span>
+                                    </div>
+                                </div>
+                                <div class="flex items-start gap-3">
+                                    <div class="text-bjp-green text-lg mt-0.5"><i class="fa-solid fa-phone"></i></div>
+                                    <div>
+                                        <strong class="block text-gray-900">Helpline / Phone</strong>
+                                        <span class="text-gray-600">+91 98765 43210, 0184-2250100</span>
+                                    </div>
+                                </div>
+                                <div class="flex items-start gap-3">
+                                    <div class="text-bjp-saffron text-lg mt-0.5"><i class="fa-solid fa-envelope"></i></div>
+                                    <div>
+                                        <strong class="block text-gray-900">Email Address</strong>
+                                        <span class="text-gray-600">councillor.karnal.bjp@gmail.com</span>
+                                    </div>
+                                </div>
+                                <div class="flex items-start gap-3">
+                                    <div class="text-bjp-green text-lg mt-0.5"><i class="fa-solid fa-clock"></i></div>
+                                    <div>
+                                        <strong class="block text-gray-900">Office Hours</strong>
+                                        <span class="text-gray-600">Monday - Saturday: 9:00 AM - 2:00 PM</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Google Maps Placeholder -->
+                        <div class="bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-200 p-2">
+                            <div class="h-64 bg-gray-200 rounded-xl relative flex items-center justify-center text-gray-500 overflow-hidden">
+                                <!-- Simulated interactive map placeholder -->
+                                <div class="absolute inset-0 bg-blue-50 flex flex-col items-center justify-center p-4 text-center">
+                                    <div class="w-12 h-12 bg-red-500 text-white rounded-full flex items-center justify-center shadow-lg mb-2 animate-bounce">
+                                        <i class="fa-solid fa-map-pin text-xl"></i>
+                                    </div>
+                                    <h4 class="font-bold text-gray-800 text-base">Municipal Corporation Karnal</h4>
+                                    <p class="text-xs text-gray-600 mt-1">Ambedkar Chowk Area, Karnal, Haryana</p>
+                                    <span class="mt-3 text-[11px] bg-white px-3 py-1 rounded-full shadow border text-blue-600 font-semibold">Google Maps Embed Ready</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Direct Message Form (7 cols) -->
+                    <div class="lg:col-span-7 bg-white rounded-2xl shadow-xl p-8 border border-gray-200">
+                        <div class="border-b border-gray-200 pb-4 mb-6">
+                            <h3 class="text-xl font-bold text-gray-900 flex items-center gap-2">
+                                <i class="fa-solid fa-message text-bjp-green"></i> Send Direct Message
+                            </h3>
+                            <p class="text-xs text-gray-500 mt-1">Have a suggestion or personal representation? Send a direct note to the councillor's secretariat.</p>
+                        </div>
+
+                        <form onsubmit="handleDirectMessage(event)" class="space-y-4">
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-xs font-bold text-gray-700 uppercase mb-1">Your Name *</label>
+                                    <input type="text" required placeholder="Full Name" class="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-bjp-green focus:outline-none text-sm">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold text-gray-700 uppercase mb-1">Email / Phone *</label>
+                                    <input type="text" required placeholder="Contact Number or Email" class="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-bjp-green focus:outline-none text-sm">
+                                </div>
+                            </div>
+
+                            <div>
+                                <label class="block text-xs font-bold text-gray-700 uppercase mb-1">Subject *</label>
+                                <input type="text" required placeholder="Subject of your message" class="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-bjp-green focus:outline-none text-sm">
+                            </div>
+
+                            <div>
+                                <label class="block text-xs font-bold text-gray-700 uppercase mb-1">Message *</label>
+                                <textarea required rows="5" placeholder="Write your message here..." class="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-bjp-green focus:outline-none text-sm"></textarea>
+                            </div>
+
+                            <button type="submit" class="w-full bg-bjp-green hover:bg-green-800 text-white font-bold py-3 rounded-lg shadow-md transition flex items-center justify-center gap-2">
+                                <i class="fa-solid fa-paper-plane"></i> Send Message to Councillor
+                            </button>
+                        </form>
+
+                        <div id="dmSuccessAlert" class="hidden mt-4 p-4 rounded-xl bg-green-50 text-green-800 text-xs font-semibold border border-green-200 text-center">
+                            <i class="fa-solid fa-circle-check"></i> Thank you! Your message has been sent successfully to the office desk.
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- ==================== PAGE 6: SETUP & PUBLISHING GUIDE ==================== -->
+        <div id="tab-guide" class="tab-content">
+            <!-- Header -->
+            <div class="bg-gradient-to-r from-orange-600 to-green-700 text-white py-12">
+                <div class="max-w-7xl mx-auto px-4 text-center">
+                    <span class="text-xs font-bold uppercase tracking-widest text-yellow-200 bg-white/10 px-3 py-1 rounded-full">Developer & Admin Guide</span>
+                    <h2 class="text-3xl sm:text-4xl font-extrabold mt-3">How to Publish Website for Free & Set Up Free Grievance Backend</h2>
+                    <p class="text-orange-50 max-w-2xl mx-auto mt-2 text-sm">Step-by-step instructions to host this website on custom domains at zero cost and connect cloud databases.</p>
+                </div>
+            </div>
+
+            <section class="max-w-5xl mx-auto px-4 py-16 space-y-12">
+                <!-- PART 1: FREE WEBSITE HOSTING -->
+                <div class="bg-white rounded-2xl shadow-xl p-8 border border-gray-200 space-y-6">
+                    <div class="flex items-center gap-3 border-b pb-4">
+                        <div class="w-10 h-10 rounded-full bg-orange-100 text-bjp-saffron flex items-center justify-center font-bold text-lg">1</div>
+                        <h3 class="text-2xl font-bold text-gray-900">How to Publish This Website for FREE</h3>
+                    </div>
+
+                    <div class="space-y-4 text-sm text-gray-700">
+                        <p class="leading-relaxed">
+                            This website is built as a single, self-contained HTML file (`index.html`), making it exceptionally easy to host for free with zero server maintenance costs using platforms like <strong>GitHub Pages</strong>, <strong>Netlify</strong>, or <strong>Vercel</strong>.
+                        </p>
+
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 pt-4">
+                            <!-- GitHub Pages -->
+                            <div class="bg-gray-50 p-5 rounded-xl border border-gray-200 space-y-2">
+                                <h4 class="font-bold text-gray-900 flex items-center gap-2"><i class="fa-brands fa-github text-lg"></i> GitHub Pages</h4>
+                                <ol class="list-decimal list-inside space-y-1 text-xs text-gray-600">
+                                    <li>Create a free account on github.com.</li>
+                                    <li>Create a new public repository (e.g., `karnal-councillor`).</li>
+                                    <li>Upload or paste this `index.html` file into the repo root.</li>
+                                    <li>Go to <strong>Settings > Pages</strong>, select `main` branch, and save. Your site is live!</li>
+                                </ol>
+                            </div>
+
+                            <!-- Netlify Drop -->
+                            <div class="bg-gray-50 p-5 rounded-xl border border-gray-200 space-y-2">
+                                <h4 class="font-bold text-gray-900 flex items-center gap-2"><i class="fa-solid fa-cloud text-bjp-saffron"></i> Netlify Drop</h4>
+                                <ol class="list-decimal list-inside space-y-1 text-xs text-gray-600">
+                                    <li>Save this code as `index.html` on your computer.</li>
+                                    <li>Visit <a href="https://drop.netlify.com" target="_blank" class="text-blue-600 underline">drop.netlify.com</a>.</li>
+                                    <li>Drag and drop your project folder or file into the browser.</li>
+                                    <li>Netlify instantly deploys your site with a free `*.netlify.app` link!</li>
+                                </ol>
+                            </div>
+
+                            <!-- Vercel -->
+                            <div class="bg-gray-50 p-5 rounded-xl border border-gray-200 space-y-2">
+                                <h4 class="font-bold text-gray-900 flex items-center gap-2"><i class="fa-solid fa-triangle-exclamation text-bjp-green"></i> Vercel</h4>
+                                <ol class="list-decimal list-inside space-y-1 text-xs text-gray-600">
+                                    <li>Log into vercel.com with your GitHub account.</li>
+                                    <li>Click <strong>Add New > Project</strong> and import your repository.</li>
+                                    <li>Click Deploy. Vercel generates an instant HTTPS production URL.</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PART 2: FREE GRIEVANCE PORTAL BACKEND -->
+                <div class="bg-white rounded-2xl shadow-xl p-8 border border-gray-200 space-y-6">
+                    <div class="flex items-center gap-3 border-b pb-4">
+                        <div class="w-10 h-10 rounded-full bg-green-100 text-bjp-green flex items-center justify-center font-bold text-lg">2</div>
+                        <h3 class="text-2xl font-bold text-gray-900">How to Set Up a Free Grievance Portal Backend</h3>
+                    </div>
+
+                    <div class="space-y-4 text-sm text-gray-700">
+                        <p class="leading-relaxed">
+                            Currently, this portal stores complaints in your browser session for instant demonstration. To connect a permanent, real-time, <strong>100% free cloud database</strong> so citizens can submit complaints from any phone and your office staff can view them live, use <strong>Google Firebase Firestore</strong>:
+                        </p>
+
+                        <div class="space-y-3 bg-gray-50 p-6 rounded-xl border border-gray-200">
+                            <h4 class="font-bold text-gray-900">Step-by-Step Firebase Integration:</h4>
+                            <ul class="list-disc list-inside space-y-2 text-xs text-gray-600">
+                                <li><strong>Step 1:</strong> Go to <a href="https://console.firebase.google.com" target="_blank" class="text-blue-600 underline">Firebase Console</a> (free Google account) and click <em>Create Project</em>.</li>
+                                <li><strong>Step 2:</strong> Enable <strong>Firestore Database</strong> in test mode and choose your closest server region (e.g., `asia-south1` for India).</li>
+                                <li><strong>Step 3:</strong> Register a web app in your Firebase project settings to get your unique `firebaseConfig` keys.</li>
+                                <li><strong>Step 4:</strong> In your JavaScript code, initialize Firebase and replace the local array push with `addDoc(collection(db, "artifacts", appId, "public", "data", "grievances"), formData)`.</li>
+                                <li><strong>Step 5:</strong> Use `onSnapshot()` to listen for real-time grievance updates so your municipal office dashboard auto-refreshes whenever a citizen submits a ticket!</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PART 3: CUSTOM DOMAIN & PRO TIPS -->
+                <div class="bg-white rounded-2xl shadow-xl p-8 border border-gray-200 space-y-4">
+                    <div class="flex items-center gap-3 border-b pb-4">
+                        <div class="w-10 h-10 rounded-full bg-orange-100 text-bjp-saffron flex items-center justify-center font-bold text-lg">3</div>
+                        <h3 class="text-2xl font-bold text-gray-900">Professional Recommendations for Political Portals</h3>
+                    </div>
+                    <ul class="list-disc list-inside space-y-2 text-sm text-gray-700">
+                        <li><strong>Custom Domain:</strong> Purchase an affordable domain name like `rajeshsharmakarnal.in` or `karnalcouncillor.in` (approx. ₹400-₹600/year) and link it to your GitHub/Netlify hosting.</li>
+                        <li><strong>WhatsApp Integration:</strong> Add a floating WhatsApp chat widget so citizens can directly message urgent civic issues with 1 click.</li>
+                        <li><strong>Bilingual Support:</strong> Add a Google Translate widget or Hindi language toggle to ensure maximum accessibility for Karnal residents.</li>
+                    </ul>
+                </div>
+            </section>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-bjp-dark text-white pt-12 pb-8 border-t-4 border-bjp-saffron">
+        <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-8 pb-8 border-b border-gray-800">
+            <div class="space-y-3">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 rounded-full saffron-gradient flex items-center justify-center text-white font-bold">
+                        <i class="fa-solid fa-seedling"></i>
+                    </div>
+                    <h3 class="font-extrabold text-lg">Karnal Municipal Office</h3>
+                </div>
+                <p class="text-xs text-gray-400">Official Portal of the Nominated Municipal Councillor. Dedicated to transparency, rapid grievance redressal, and Karnal's holistic development under BJP leadership.</p>
+            </div>
+
+            <div class="space-y-2">
+                <h4 class="font-bold text-sm text-bjp-saffron uppercase tracking-wider">Quick Links</h4>
+                <ul class="text-xs text-gray-300 space-y-1.5">
+                    <li><button onclick="switchTab('home')" class="hover:text-bjp-saffron transition">Home</button></li>
+                    <li><button onclick="switchTab('about')" class="hover:text-bjp-saffron transition">About Councillor</button></li>
+                    <li><button onclick="switchTab('social')" class="hover:text-bjp-saffron transition">Social Media & Photos</button></li>
+                    <li><button onclick="switchTab('grievance')" class="hover:text-bjp-saffron transition">Public Grievance Portal</button></li>
+                    <li><button onclick="switchTab('contact')" class="hover:text-bjp-saffron transition">Contact Office</button></li>
+                </ul>
+            </div>
+
+            <div class="space-y-2">
+                <h4 class="font-bold text-sm text-bjp-saffron uppercase tracking-wider">Office Location</h4>
+                <p class="text-xs text-gray-300"><i class="fa-solid fa-location-dot text-bjp-saffron mr-1"></i> Municipal Corporation Camp Office, Ambedkar Chowk, Karnal, Haryana - 132001</p>
+                <p class="text-xs text-gray-300"><i class="fa-solid fa-phone text-bjp-saffron mr-1"></i> +91 98765 43210</p>
+                <p class="text-xs text-gray-300"><i class="fa-solid fa-envelope text-bjp-saffron mr-1"></i> councillor.karnal.bjp@gmail.com</p>
+            </div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 pt-6 flex flex-col sm:flex-row justify-between items-center text-xs text-gray-500 gap-4">
+            <p>&copy; 2026 Karnal Municipal Councillor Office (BJP). All rights reserved.</p>
+            <p class="flex items-center gap-1">Designed for Transparent Public Governance in Karnal <i class="fa-solid fa-heart text-bjp-saffron"></i></p>
+        </div>
+    </footer>
+
+    <!-- JavaScript Application Logic -->
+    <script>
+        // Tab Navigation Switcher
+        function switchTab(tabId) {
+            // Hide all tabs
+            const tabs = document.querySelectorAll('.tab-content');
+            tabs.forEach(tab => tab.classList.remove('active'));
+
+            // Remove active style from all nav buttons
+            const navBtns = document.querySelectorAll('.nav-btn');
+            navBtns.forEach(btn => {
+                btn.classList.remove('text-bjp-saffron', 'font-bold', 'bg-orange-50');
+                btn.classList.add('text-gray-700');
+            });
+
+            // Show selected tab
+            const targetTab = document.getElementById('tab-' + tabId);
+            if (targetTab) {
+                targetTab.classList.add('active');
+            }
+
+            // Highlight corresponding nav button if exists
+            const activeBtn = document.getElementById('nav-' + tabId);
+            if (activeBtn) {
+                activeBtn.classList.remove('text-gray-700');
+                activeBtn.classList.add('text-bjp-saffron', 'font-bold', 'bg-orange-50');
+            }
+
+            // Scroll to top smoothly
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Mobile Menu Toggle
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+
+        // Grievance Form Submission Handler
+        function handleGrievanceSubmit(event) {
+            event.preventDefault();
+
+            const name = document.getElementById('gName').value;
+            const phone = document.getElementById('gPhone').value;
+            const category = document.getElementById('gCategory').value;
+            const location = document.getElementById('gLocation').value;
+            const desc = document.getElementById('gDesc').value;
+
+            // Generate unique ticket ID
+            const randomId = 'TKT-' + Math.floor(10000 + Math.random() * 90000);
+
+            // Show success box
+            const successBox = document.getElementById('ticketSuccessBox');
+            const ticketIdSpan = document.getElementById('generatedTicketId');
+            ticketIdSpan.innerText = randomId;
+            successBox.classList.remove('hidden');
+
+            // Prepend new complaint to local list
+            const container = document.getElementById('complaintsListContainer');
+            const newCard = document.createElement('div');
+            newCard.className = 'p-4 rounded-xl bg-orange-50/60 border border-orange-200 space-y-2 animate-pulse';
+            newCard.innerHTML = `
+                <div class="flex justify-between items-start">
+                    <span class="text-xs font-mono font-bold text-bjp-saffron">${randomId}</span>
+                    <span class="text-[10px] bg-yellow-100 text-yellow-800 font-bold px-2 py-0.5 rounded-full">Pending Review</span>
+                </div>
+                <h4 class="font-bold text-sm text-gray-800">${category}: ${location}</h4>
+                <p class="text-xs text-gray-600">${desc.substring(0, 50)}...</p>
+                <div class="text-[11px] text-gray-400 pt-1 border-t border-gray-200 flex justify-between">
+                    <span>Just Now</span>
+                    <span class="text-bjp-saffron font-medium">Assigned to Office Desk</span>
+                </div>
+            `;
+            container.prepend(newCard);
+
+            // Reset form
+            document.getElementById('grievanceForm').reset();
+            
+            // Scroll to success box
+            successBox.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Direct Message Form Handler
+        function handleDirectMessage(event) {
+            event.preventDefault();
+            const alertBox = document.getElementById('dmSuccessAlert');
+            alertBox.classList.remove('hidden');
+            event.target.reset();
+            setTimeout(() => {
+                alertBox.classList.add('hidden');
+            }, 6000);
+        }
+    </script>
+</body>
+</html>
